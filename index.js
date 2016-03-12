@@ -28,5 +28,7 @@ const filterToDos = _.pipeline(
 )
 
 module.exports = {
+  filterComplete,
+  sortByDueDate,
   filterToDos
 }

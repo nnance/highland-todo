@@ -13,18 +13,44 @@ const data = [
   },
   {
     subject: "Try out the Node Stream Adventure",
-    dueDate: "02/01/2016",
+    dueDate: "01/15/2016",
     complete: false
   },
   {
     subject: "Build Todo app based on Highland js",
-    dueDate: "01/15/2016",
+    dueDate: "02/01/2016",
     complete: true
   }
 ]
 
 describe("Functional Todo app", () => {
   describe("When filtering incomplete items", () => {
+    let results
+    before((done) => {
+      _(data).through(api.filterComplete).toArray((x) => {
+        results = x
+        done()
+      })
+    })
+    it("should return 2 items", () => {
+      expect(results.length).to.equal(2)
+    })
+  })
+
+  describe("When sorting items", () => {
+    let results
+    before((done) => {
+      _(data).through(api.sortByDueDate).toArray((x) => {
+        results = x
+        done()
+      })
+    })
+    it("should be sorted in descending order", () => {
+      expect(results[0].dueDate).to.equal("02/01/2016")
+    })
+  })
+
+  describe("After sorting items", () => {
     let results
     before((done) => {
       _(data).pipe(api.filterToDos).toArray((x) => {
@@ -36,7 +62,7 @@ describe("Functional Todo app", () => {
       expect(results.length).to.equal(2)
     })
     it("should be sorted in descending order", () => {
-      expect(results[0].dueDate).to.equal("02/01/2016")
+      expect(results[0].dueDate).to.equal("01/15/2016")
     })
   })
 })
