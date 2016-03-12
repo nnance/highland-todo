@@ -2,6 +2,8 @@
   "extends": "defaults/configurations/walmart/es6-node",
   "rules": {
     "semi": [2, "never"],
+    "func-style": [2, "declaration", { "allowArrowFunctions": true }],
+    "no-use-before-define": 0,
     "no-console": 0
   },
   "env": {
