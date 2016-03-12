@@ -73,19 +73,22 @@ describe("Functional Todo app", () => {
     })
   })
 
-  describe("After sorting items", () => {
+  describe("After organizing items", () => {
     let results
     before((done) => {
-      _(data).pipe(api.filterToDos).toArray((x) => {
+      _(data).pipe(api.filterToDos).apply((x) => {
         results = x
         done()
       })
     })
-    it("should return 3 items", () => {
-      expect(results.length).to.equal(incompleteCount)
+    it("should return 2 items for batman", () => {
+      expect(results.batman.length).to.equal(2)
+    })
+    it("should return 1 item for robin", () => {
+      expect(results.robin.length).to.equal(1)
     })
     it("should be sorted in descending order", () => {
-      expect(results[0].dueDate).to.equal("03/01/2016")
+      expect(results.batman[0].dueDate).to.equal("01/15/2016")
     })
   })
 })

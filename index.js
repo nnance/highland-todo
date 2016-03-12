@@ -27,7 +27,8 @@ function groupByUser(stream) {
 
 const filterToDos = _.pipeline(
   filterComplete,
-  sortByDueDate
+  sortByDueDate,
+  groupByUser
 )
 
 module.exports = {
