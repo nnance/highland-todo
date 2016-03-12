@@ -7,21 +7,31 @@ const api = require("../index")
 
 const data = [
   {
+    username: "batman",
     subject: "Read about functional programming",
     dueDate: "01/01/2016",
     complete: false
   },
   {
+    username: "batman",
     subject: "Try out the Node Stream Adventure",
     dueDate: "01/15/2016",
     complete: false
   },
   {
+    username: "robin",
     subject: "Build Todo app based on Highland js",
     dueDate: "02/01/2016",
     complete: true
+  },
+  {
+    username: "robin",
+    subject: "Build GraphQL server for Star Wars API",
+    dueDate: "03/01/2016",
+    complete: false
   }
 ]
+const incompleteCount = 3
 
 describe("Functional Todo app", () => {
   describe("When filtering incomplete items", () => {
@@ -32,8 +42,8 @@ describe("Functional Todo app", () => {
         done()
       })
     })
-    it("should return 2 items", () => {
-      expect(results.length).to.equal(2)
+    it("should return 3 items", () => {
+      expect(results.length).to.equal(incompleteCount)
     })
   })
 
@@ -46,7 +56,20 @@ describe("Functional Todo app", () => {
       })
     })
     it("should be sorted in descending order", () => {
-      expect(results[0].dueDate).to.equal("02/01/2016")
+      expect(results[0].dueDate).to.equal("03/01/2016")
+    })
+  })
+
+  describe("When grouping items by username", () => {
+    let results
+    before((done) => {
+      _(data).through(api.groupByUser).apply((x) => {
+        results = x
+        done()
+      })
+    })
+    it("should have a property for each user", () => {
+      expect(Object.keys(results).length).to.equal(2)
     })
   })
 
@@ -58,11 +81,11 @@ describe("Functional Todo app", () => {
         done()
       })
     })
-    it("should return 2 items", () => {
-      expect(results.length).to.equal(2)
+    it("should return 3 items", () => {
+      expect(results.length).to.equal(incompleteCount)
     })
     it("should be sorted in descending order", () => {
-      expect(results[0].dueDate).to.equal("01/15/2016")
+      expect(results[0].dueDate).to.equal("03/01/2016")
     })
   })
 })

@@ -19,7 +19,10 @@ function sortByDueDate(stream) {
       return 0
     }
   }
+}
 
+function groupByUser(stream) {
+  return stream.group("username")
 }
 
 const filterToDos = _.pipeline(
@@ -30,5 +33,6 @@ const filterToDos = _.pipeline(
 module.exports = {
   filterComplete,
   sortByDueDate,
+  groupByUser,
   filterToDos
 }
