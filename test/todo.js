@@ -9,13 +9,13 @@ const data = [
   {
     username: "batman",
     subject: "Read about functional programming",
-    dueDate: "01/01/2016",
+    dueDate: "01/15/2016",
     complete: false
   },
   {
     username: "batman",
     subject: "Try out the Node Stream Adventure",
-    dueDate: "01/15/2016",
+    dueDate: "01/01/2016",
     complete: false
   },
   {
@@ -55,8 +55,8 @@ describe("Functional Todo app", () => {
         done()
       })
     })
-    it("should be sorted in descending order", () => {
-      expect(results[0].dueDate).to.equal("03/01/2016")
+    it("should be sorted in ascending order", () => {
+      expect(results[0].dueDate).to.equal("01/01/2016")
     })
   })
 
@@ -73,10 +73,10 @@ describe("Functional Todo app", () => {
     })
   })
 
-  describe("After organizing items", () => {
+  describe("After getting active items by user", () => {
     let results
     before((done) => {
-      _(data).pipe(api.filterToDos).apply((x) => {
+      _(data).pipe(api.activeByUser).apply((x) => {
         results = x
         done()
       })
